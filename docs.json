@@ -103,19 +103,6 @@
     "light": "/logo/logo-light.svg",
     "dark": "/logo/logo-dark.svg"
   },
-  "navbar": {
-    "links": [
-      {
-        "label": "Support",
-        "href": "mailto:hi@mintlify.com"
-      }
-    ],
-    "primary": {
-      "type": "button",
-      "label": "Dashboard",
-      "href": "https://dashboard.mintlify.com"
-    }
-  },
   "footer": {
     "socials": {
       "x": "https://x.com/mintlify",
