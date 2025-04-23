@@ -1,0 +1,1696 @@
+{
+  "openapi": "3.1.0",
+  "paths": {
+    "/network/{networkId}/groups": {
+      "get": {
+        "operationId": "listGroups",
+        "summary": "List Groups",
+        "description": "List accessible groups of a network.",
+        "tags": ["Network"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of groups.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalGroup"
+                  },
+                  "description": "The list of groups."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/users": {
+      "get": {
+        "operationId": "listUsers",
+        "summary": "List Members",
+        "description": "List users of a group.",
+        "tags": ["Network"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of users.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalUser"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/user": {
+      "get": {
+        "operationId": "getUser",
+        "summary": "Get User",
+        "description": "Get logged in user",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "The logged in user.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CurrentUser"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/check-access": {
+      "get": {
+        "operationId": "checkNetworkAccess",
+        "summary": "Check Access",
+        "description": "Check a network can be accessed.",
+        "tags": ["Network"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The network can be accessed.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "ok": {
+                      "type": "boolean"
+                    }
+                  },
+                  "required": ["ok"]
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/person": {
+      "post": {
+        "operationId": "addPersonToGroup",
+        "summary": "Create a Person",
+        "description": "Add a new person to an existing group",
+        "tags": ["Group Person"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPersonDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The person created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupPerson"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/company": {
+      "post": {
+        "operationId": "addCompanyToGroup",
+        "summary": "Create a Company",
+        "description": "Add a new company to an existing group",
+        "tags": ["Group Company"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCompanyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The company created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupCompany"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/person/{personId}": {
+      "put": {
+        "operationId": "updatePerson",
+        "summary": "Update a Person",
+        "description": "Update a person in an existing group",
+        "tags": ["Group Person"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "personId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddPersonDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated person.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupPerson"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/company/{companyId}": {
+      "put": {
+        "operationId": "updateCompany",
+        "summary": "Update a Company",
+        "description": "Update a company in an existing group",
+        "tags": ["Group Company"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "companyId",
+            "in": "path"
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddCompanyDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The updated company.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupCompany"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/person/find/{query}": {
+      "get": {
+        "operationId": "findOnePerson",
+        "summary": "Find a Person",
+        "description": "Find a person in a group.",
+        "tags": ["Group Person"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "query",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The person.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupPerson"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/company/find/{query}": {
+      "get": {
+        "operationId": "findOneCompany",
+        "summary": "Find a Company",
+        "description": "Find a company in a group.",
+        "tags": ["Group Company"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "query",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The company.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupCompany"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/person/get/{personId}": {
+      "get": {
+        "operationId": "getPerson",
+        "summary": "Get a Person",
+        "description": "Get a person in a group by its ID",
+        "tags": ["Group Person"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "personId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The person.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupPerson"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/company/get/{companyId}": {
+      "get": {
+        "operationId": "getCompany",
+        "summary": "Get a Company",
+        "description": "Get a company in a group by its ID",
+        "tags": ["Group Company"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "companyId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The company.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalGroupCompany"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/contacts": {
+      "get": {
+        "operationId": "listContacts",
+        "summary": "List Contacts",
+        "description": "List contacts of a group.",
+        "tags": ["Network"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of contacts.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalGroupPerson"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/person/custom-fields": {
+      "get": {
+        "operationId": "getPersonCustomFields",
+        "summary": "List Custom Fields",
+        "description": "List custom fields available for people in a group.",
+        "tags": ["Group Person"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of custom fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalGroupCustomField"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/company/custom-fields": {
+      "get": {
+        "operationId": "getCompanyCustomFields",
+        "summary": "List Custom Fields",
+        "description": "List custom fields available for companies in a group.",
+        "tags": ["Group Company"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of custom fields.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalGroupCustomField"
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/external-trigger": {
+      "post": {
+        "operationId": "createExternalTrigger",
+        "summary": "Create external trigger",
+        "description": "Create a new external trigger",
+        "tags": ["External Trigger"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AddExternalTriggerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "The external trigger created.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTrigger"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad request."
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/external-trigger/{triggerId}": {
+      "delete": {
+        "operationId": "deleteExternalTrigger",
+        "summary": "Delete external trigger",
+        "description": "Delete an existing external trigger",
+        "tags": ["External Trigger"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "triggerId",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The external trigger deleted.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ExternalTrigger"
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    },
+    "/network/{networkId}/group/{groupId}/event/{eventType}": {
+      "get": {
+        "operationId": "getExternalTriggerEvents",
+        "summary": "List external trigger events",
+        "description": "Get a sample of external trigger events",
+        "tags": ["External Trigger"],
+        "parameters": [
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "networkId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "groupId",
+            "in": "path"
+          },
+          {
+            "schema": {
+              "type": "string"
+            },
+            "required": true,
+            "name": "eventType",
+            "in": "path"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list of external trigger events.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ExternalTriggerEvent"
+                  },
+                  "description": "The list of external trigger events."
+                }
+              }
+            }
+          },
+          "401": {
+            "description": "Unauthorized."
+          },
+          "403": {
+            "description": "Forbidden."
+          },
+          "404": {
+            "description": "Not found."
+          }
+        }
+      }
+    }
+  },
+  "info": {
+    "title": "Folk External API",
+    "description": "folk external API",
+    "version": "1.0"
+  },
+  "tags": [
+    {
+      "name": "Network",
+      "description": "Operations related to networks"
+    },
+    {
+      "name": "Group Person",
+      "description": "Operations related to contacts of type person within a group."
+    },
+    {
+      "name": "Group Company",
+      "description": "Operations related to contacts of type company within a group."
+    },
+    {
+      "name": "External Trigger",
+      "description": "Operations related to external triggers."
+    }
+  ],
+  "components": {
+    "schemas": {
+      "ExternalGroup": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The group unique identifier.",
+            "title": "Group ID"
+          },
+          "networkId": {
+            "type": "string",
+            "description": "The network unique identifier.",
+            "title": "Network ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "The group name.",
+            "title": "Group name"
+          }
+        },
+        "required": ["id", "networkId", "name"]
+      },
+      "ExternalUser": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The user unique identifier.",
+            "title": "User ID"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The person full name.",
+            "title": "Full name"
+          },
+          "email": {
+            "type": "string",
+            "description": "The person full email.",
+            "title": "Email"
+          }
+        },
+        "required": ["id", "fullName", "email"]
+      },
+      "CurrentUser": {
+        "type": "object",
+        "properties": {
+          "networkIds": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The networks the user is a member of.",
+            "title": "Network IDs"
+          },
+          "id": {
+            "type": "string",
+            "description": "The user unique identifier.",
+            "title": "User ID"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The person full name.",
+            "title": "Full name"
+          },
+          "email": {
+            "type": "string",
+            "description": "The person full email.",
+            "title": "Email"
+          }
+        },
+        "required": ["networkIds", "id", "fullName", "email"]
+      },
+      "ExternalGroupPerson": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The person unique identifier.",
+            "title": "Person ID"
+          },
+          "networkId": {
+            "type": "string",
+            "description": "The person network unique identifier.",
+            "title": "Network ID"
+          },
+          "groupId": {
+            "type": "string",
+            "description": "The person group unique identifier.",
+            "title": "Group ID"
+          },
+          "fullName": {
+            "type": "string",
+            "description": "The person full name.",
+            "title": "Full name"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The person first name.",
+            "title": "First name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The person last name.",
+            "title": "Last name"
+          },
+          "jobTitle": {
+            "type": "string",
+            "description": "The person job title.",
+            "title": "Job title"
+          },
+          "birthday": {
+            "type": "string",
+            "description": "The person birthday.",
+            "title": "Birthday"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The person emails.",
+            "title": "Emails"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The person phone numbers.",
+            "title": "Phones"
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The person URLs.",
+            "title": "URLs"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The person addresses.",
+            "title": "Addresses"
+          },
+          "companies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "domain": {
+                  "type": "string"
+                },
+                "picture": {
+                  "type": "string"
+                }
+              },
+              "required": ["id", "name"]
+            },
+            "description": "The person companies.",
+            "title": "Companies"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true,
+            "description": "The person description.",
+            "title": "Description"
+          },
+          "lastInteractionDate": {
+            "type": "string",
+            "description": "The date of the last interaction with this contact.",
+            "title": "Last interaction date"
+          },
+          "strongestConnection": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "fullname": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "picture": {
+                "type": "string"
+              }
+            },
+            "required": ["id"],
+            "description": "The strongest connection to this contact.",
+            "title": "Strongest connection"
+          },
+          "totalInteractions": {
+            "type": "number",
+            "description": "The total number of interactions with this contact.",
+            "title": "Total interactions"
+          },
+          "customFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "description": "The person custom fields.",
+            "title": "Custom Fields",
+            "deprecated": true
+          },
+          "groupCustomFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id", "label"]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["id", "label"]
+                  }
+                }
+              ]
+            },
+            "description": "The person custom fields.",
+            "title": "Custom Fields"
+          }
+        },
+        "required": [
+          "id",
+          "networkId",
+          "groupId",
+          "emails",
+          "phones",
+          "urls",
+          "addresses",
+          "companies",
+          "note",
+          "totalInteractions"
+        ]
+      },
+      "AddPersonDto": {
+        "type": "object",
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "title": "Full Name"
+          },
+          "firstName": {
+            "type": "string",
+            "title": "First Name"
+          },
+          "lastName": {
+            "type": "string",
+            "title": "Last Name"
+          },
+          "company": {
+            "type": "string",
+            "title": "Current Company"
+          },
+          "birthday": {
+            "type": "string",
+            "title": "Birthday"
+          },
+          "jobTitle": {
+            "type": "string",
+            "title": "Job Title"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Addresses"
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "URLs"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Emails"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Phones"
+          },
+          "note": {
+            "type": "string",
+            "title": "Description"
+          },
+          "customFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "title": "Custom Fields"
+          }
+        }
+      },
+      "ExternalGroupCompany": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The company unique identifier.",
+            "title": "Company ID"
+          },
+          "networkId": {
+            "type": "string",
+            "description": "The company network unique identifier.",
+            "title": "Network ID"
+          },
+          "groupId": {
+            "type": "string",
+            "description": "The company group unique identifier.",
+            "title": "Group ID"
+          },
+          "name": {
+            "type": "string",
+            "description": "The company name.",
+            "title": "Name"
+          },
+          "domain": {
+            "type": "string",
+            "description": "The company domain.",
+            "title": "Domain"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The company emails.",
+            "title": "Emails"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The company phone numbers.",
+            "title": "Phones"
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The company URLs.",
+            "title": "URLs"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The company addresses.",
+            "title": "Addresses"
+          },
+          "note": {
+            "type": "string",
+            "nullable": true,
+            "description": "The company description.",
+            "title": "Description"
+          },
+          "customFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "description": "The company custom fields.",
+            "title": "Custom Fields",
+            "deprecated": true
+          },
+          "groupCustomFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "label": {
+                      "type": "string"
+                    }
+                  },
+                  "required": ["id", "label"]
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "label": {
+                        "type": "string"
+                      }
+                    },
+                    "required": ["id", "label"]
+                  }
+                }
+              ]
+            },
+            "description": "The company custom fields.",
+            "title": "Custom Fields"
+          }
+        },
+        "required": [
+          "id",
+          "networkId",
+          "groupId",
+          "emails",
+          "phones",
+          "urls",
+          "addresses",
+          "note"
+        ]
+      },
+      "AddCompanyDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name"
+          },
+          "addresses": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Addresses"
+          },
+          "urls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "URLs"
+          },
+          "emails": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Emails"
+          },
+          "phones": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "title": "Phones"
+          },
+          "note": {
+            "type": "string",
+            "title": "Description"
+          },
+          "customFields": {
+            "type": "object",
+            "additionalProperties": {
+              "anyOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              ]
+            },
+            "title": "Custom Fields"
+          }
+        }
+      },
+      "ExternalGroupCustomFieldValue": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The custom field value unique identifier.",
+            "title": "Custom field value ID"
+          },
+          "label": {
+            "type": "string",
+            "description": "The custom field value label.",
+            "title": "Custom field value label"
+          }
+        },
+        "required": ["id", "label"]
+      },
+      "ExternalGroupCustomField": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The custom field unique identifier.",
+            "title": "Custom field ID"
+          },
+          "groupId": {
+            "type": "string",
+            "description": "The group unique identifier.",
+            "title": "Group ID"
+          },
+          "contactType": {
+            "type": "string",
+            "enum": ["person", "company"],
+            "description": "The type of contact the custom field applies to (person or company).",
+            "title": "Contact Type"
+          },
+          "name": {
+            "type": "string",
+            "description": "The custom field name.",
+            "title": "Custom field Name"
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "multipleSelect",
+              "userField",
+              "contactField",
+              "objectField",
+              "singleSelect",
+              "textField",
+              "dateField",
+              "numericField",
+              "magicField"
+            ],
+            "description": "The custom field type.",
+            "title": "Custom field Type"
+          },
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ExternalGroupCustomFieldValue"
+            },
+            "description": "The custom field possible values.",
+            "title": "Custom field values"
+          }
+        },
+        "required": ["id", "groupId", "contactType", "name", "type"]
+      },
+      "ExternalTrigger": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        },
+        "required": ["id"]
+      },
+      "AddExternalTriggerDto": {
+        "type": "object",
+        "properties": {
+          "networkId": {
+            "type": "string",
+            "title": "Network ID"
+          },
+          "groupId": {
+            "type": "string",
+            "title": "Group ID"
+          },
+          "eventType": {
+            "type": "string",
+            "title": "Event type"
+          },
+          "url": {
+            "type": "string",
+            "title": "URL"
+          }
+        },
+        "required": ["networkId", "groupId", "eventType", "url"]
+      },
+      "ExternalTriggerEventContactData": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": "string"
+          },
+          "contactType": {
+            "type": "string",
+            "enum": ["person", "company"]
+          },
+          "details": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "fieldName": {
+                    "type": "string"
+                  },
+                  "fieldValue": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "required": ["fieldName", "fieldValue"]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "customFieldId": {
+                    "type": "string"
+                  },
+                  "customFieldValue": {
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        }
+                      }
+                    ]
+                  }
+                },
+                "required": ["customFieldId", "customFieldValue"]
+              }
+            ]
+          }
+        },
+        "required": ["type", "id", "contactType"]
+      },
+      "ExternalTriggerEvent": {
+        "type": "object",
+        "properties": {
+          "eventId": {
+            "type": "string"
+          },
+          "eventType": {
+            "type": "string"
+          },
+          "timestamp": {
+            "type": "string"
+          },
+          "networkId": {
+            "type": "string"
+          },
+          "data": {
+            "$ref": "#/components/schemas/ExternalTriggerEventContactData"
+          }
+        },
+        "required": ["eventId", "eventType", "timestamp", "networkId", "data"]
+      }
+    },
+    "parameters": {}
+  }
+}
