@@ -1719,5 +1719,19 @@
         "name": "X-API-Key"
       }
     }
-  }
+  },
+  "servers": [
+    {
+      "url": "https://api.folk.app",
+      "description": "Folk production API"
+    },
+    {
+      "url": "https://api.folk.run",
+      "description": "Folk dev API"
+    },
+    {
+      "url": "http://localhost:8006",
+      "description": "Folk local API"
+    }
+  ]
 }
