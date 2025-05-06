@@ -17,6 +17,11 @@
             "in": "path"
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "The list of groups.",
@@ -60,6 +65,11 @@
             "in": "path"
           }
         ],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "The list of users.",
@@ -92,6 +102,11 @@
         "summary": "Get User",
         "description": "Get logged in user",
         "tags": ["User"],
+        "security": [
+          {
+            "ApiKeyAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "The logged in user.",
@@ -129,6 +144,11 @@
             "required": true,
             "name": "networkId",
             "in": "path"
+          }
+        ],
+        "security": [
+          {
+            "ApiKeyAuth": []
           }
         ],
         "responses": {
