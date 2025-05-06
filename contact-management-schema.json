@@ -1691,6 +1691,13 @@
         "required": ["eventId", "eventType", "timestamp", "networkId", "data"]
       }
     },
-    "parameters": {}
+    "parameters": {},
+    "securitySchemes": {
+      "ApiKeyAuth": {
+        "type": "apiKey",
+        "in": "header",
+        "name": "X-API-Key"
+      }
+    }
   }
 }
